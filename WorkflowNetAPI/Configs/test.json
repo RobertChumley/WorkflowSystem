@@ -1,0 +1,221 @@
+﻿{
+
+  "WorkflowName": "TestFlow",
+  "InitialWorkflowStateName": "Initial",
+  "DatabaseConfig": {
+    "ConnectionString": "Server=(local)\\SQLExpress;Database=TestDBForWorkflow;Integrated Security=true",
+    "DatabaseName": "TestDBForWorkflow"
+  },
+  "WorkflowEvents": [
+    {
+      "EventName": "Initial",
+      "WorkflowEventType": "Start",
+      "WorkflowActionName": "Action 2"
+    }
+  ],
+  "WorkflowTransitions": [
+    {
+      "TransitionReason": "Reason 1",
+      "SourceState": "Initial",
+      "DestinationState": "Started",
+      "OnTransitionInEventName": "Initial",
+      "OnTransitionOutEventName": "Started"
+    }
+  ],
+  "WorkflowObjectTypes": [
+    {
+      "ObjectTypeName": "Person",
+      "PrimaryKeyField": "Id",
+      "ObjectFields": [
+        {
+          "FieldName": "FirstName",
+          "FieldDisplay": "First Name",
+          "FieldType": "string"
+        },
+        {
+          "FieldName": "LastName",
+          "FieldDisplay": "Last Name",
+          "FieldType": "string"
+        }
+      ]
+    }
+  ],
+  "WorkflowListeners": [
+    {
+      "ListenerType": "WebAPI",
+      "WorkflowObjectName": "Person",
+      "WorkflowListenerName": "PersonAPI",
+      "ListenerActions": [
+        {
+          "ListenerMethod": "GET",
+          "ListenerAction": "Action 12"
+        }
+      ]
+    },
+    {
+      "ListenerType": "Socket",
+      "IPAddress": "127.0.0.1",
+      "PortNumber": "5005",
+      "WorkflowListenerName": "SocketListener12345",
+      "Protocol": "Tcp",
+      "ListenerActions": [
+        {
+          "ListenerMethod": "GET",
+          "ListenerAction": "Action 12"
+        }
+      ]
+    },
+    {
+      "ListenerType": "WebSocket",
+      "IPAddress": "127.0.0.1",
+      "PortNumber": "12123",
+      "WorkflowListenerName": "WebSocketListener12123",
+      "Protocol": "Tcp",
+      "ListenerActions": [
+        {
+          "ListenerMethod": "GET",
+          "ListenerAction": "Action 12"
+        }
+      ]
+    }
+  ],
+  "WorkflowActions": [
+    {
+      "WorkflowActionName": "Action 1",
+      "NextAction": "Action 2",
+      "Tick": "500",
+      "WorkflowActionType": "Timer",
+      "WorkflowRoutine": {
+        "MethodName": "Test",
+        "TypeName": "Type1"
+      }
+    },
+    {
+      "WorkflowActionName": "Action 2",
+      "WorkflowEventType": "Start",
+      "WorkflowActionType": "Event",
+      "WorkflowRoutine": {
+        "MethodName": "Test",
+        "TypeName": "Type1"
+      }
+    },
+    {
+      "WorkflowActionName": "Action 3",
+      "WorkflowActionType": "Transition",
+      "DestinationState": "State 2"
+    },
+    {
+      "WorkflowActionName": "Action 4",
+      "MutationOperatorType": "Increment",
+      "MutationParameter": {
+        "Name": "Name1",
+        "Type": "string",
+        "Value": "1"
+      },
+      "WorkflowActionType": "MutateState",
+      "DestinationState": "State 2"
+    },
+    {
+      "WorkflowActionName": "Action 6",
+      "WorkflowActionType": "Transition",
+      "DestinationState": "State 3"
+    },
+    {
+      "WorkflowActionName": "Action 7",
+      "WorkflowActionType": "Transition",
+      "DestinationState": "State 4"
+    },
+    {
+      "WorkflowActionName": "Action 8",
+      "WorkflowActionType": "Execute"
+    },
+    {
+      "WorkflowActionName": "Action 9",
+      "WorkflowActionType": "Conditional",
+      "WorkflowConditions": {
+        "ConditionalParamter": {
+          "Name": "Name1",
+          "Type": "string",
+          "Value": "1"
+        },
+        "ConditionalActions": [
+          {
+            "OptionValue": "1",
+            "WorkflowAction": "Action 7"
+          }
+        ]
+      }
+    },
+    {
+      "WorkflowActionName": "Action 10",
+      "WorkflowActionType": "Timer",
+      "TimerAction": "Action 4",
+      "Iterations": 3,
+      "Tick": "1",
+      "TickType": "Second"
+    },
+    {
+      "WorkflowActionName": "Action 11",
+      "WorkflowActionType": "Queue",
+      "QueueName": "workflowtest",
+      "QueueAction": "Action 6",
+      "Servers": [
+        { "Url": "http://192.168.99.100:9092" }
+      ]
+    },
+    {
+      "WorkflowActionName": "Action 12",
+      "WorkflowActionType": "Transition",
+      "DestinationState": "State 4",
+      "NextAction": "Action 6"
+    }
+
+  ],
+  "WorkflowStates": [
+    {
+      "StateName": "Initial",
+      "WorkflowStateType": "Start"
+    },
+    {
+      "StateName": "State 3",
+      "WorkflowConditions": [
+        {
+          "ConditionalParamter": {
+            "Name": "Name1",
+            "Type": "string",
+            "Value": "1"
+          },
+          "ConditionalActions": [ { "": "" } ]
+        }
+      ]
+    },
+    {
+      "StateName": "State 4"
+    },
+    {
+      "StateName": "State 2",
+      "WorkflowParameters": [
+        {
+          "Name": "Name1",
+          "Type": "string",
+          "Value": "1"
+        }
+      ],
+      "WorkflowStateType": "Executing",
+      "WorkflowExecutionRules": [
+        {
+          "WorkflowRuleOperator": "GreaterThen",
+          "RightHand": {
+            "Name": "InventoryValue",
+            "Type": "Int32",
+            "Value": "1"
+          },
+          "LeftHandParam": "Name1",
+          "PositiveAction": "Action 6",
+          "ElseAction": "Action 7"
+        }
+      ]
+    }
+  ]
+}
+

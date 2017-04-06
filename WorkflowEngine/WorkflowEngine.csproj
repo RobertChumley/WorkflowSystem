@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{297DD595-7515-4C58-8EC2-2344E3A224D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkflowEngine</RootNamespace>
+    <AssemblyName>WorkflowEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="kafka-net, Version=0.9.0.65, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\kafka-net.0.9.0.65\lib\net45\kafka-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <HintPath>..\..\..\..\Users\Rober\.nuget\packages\Microsoft.AspNetCore.Http.Abstractions\1.0.0\lib\net451\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features">
+      <HintPath>..\..\..\..\Users\Rober\.nuget\packages\Microsoft.AspNetCore.Http.Features\1.0.0\lib\net451\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions">
+      <HintPath>..\..\..\..\Users\Rober\.nuget\packages\Microsoft.AspNetCore.Routing.Abstractions\1.0.1\lib\net451\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>..\..\..\..\Users\Rober\.nuget\packages\Microsoft.Extensions.Primitives\1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DatabaseEngine\DatabaseTableBuilder.cs" />
+    <Compile Include="DatabaseEngine\ParamManager.cs" />
+    <Compile Include="DatabaseEngine\WorkflowDatabaseEngine.cs" />
+    <Compile Include="DatabaseEngine\WorkflowSQLConnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkflowController.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowExecutionRuleExtensions.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowQueueAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowSendSocketAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowObjects\ImageExtensions.cs" />
+    <Compile Include="Workflow\Engine\WorkflowObjects\WorkflowImageObject.cs" />
+    <Compile Include="Workflow\Engine\WorkflowObjects\WorkflowObject.cs" />
+    <Compile Include="Workflow\Engine\WorkflowObjects\WorkflowRawObjectType.cs" />
+    <Compile Include="Workflow\ExecutionSystem\SocketExtensions.cs" />
+    <Compile Include="Workflow\ExecutionSystem\WorkflowListenerManager.cs" />
+    <Compile Include="Workflow\Listeners\RouteObjectBuilder.cs" />
+    <Compile Include="Workflow\Listeners\WebAPIListener.cs" />
+    <Compile Include="Workflow\Listeners\WorkflowDataObject.cs" />
+    <Compile Include="Workflow\Listeners\WorkflowObjectValue.cs" />
+    <Compile Include="Workflow\Listeners\WorkflowSocketListener.cs" />
+    <Compile Include="Workflow\Listeners\WorkflowWebSocketListener.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowSendSocketActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowListeners\WorkflowEventStreamListenerConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowQueueActionConfig.cs" />
+    <Compile Include="Workflow\Engine\WorkflowTransitions\WorkflowTransitionManager.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowActionBaseConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowConditionalActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowEventActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowMutateActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowTimerActionConfig.cs" />
+    <Compile Include="Workflow\Engine\WorkflowContainer\RegistryContainer.cs" />
+    <Compile Include="Workflow\Engine\WorkflowObjects\WorkflowDataObject.cs" />
+    <Compile Include="Workflow\Engine\WorkflowRegistries\WorkflowActionRegistry.cs" />
+    <Compile Include="Workflow\Model\Types\MutationOperatorType.cs" />
+    <Compile Include="Workflow\Engine\WorkflowTransitions\WorkflowTransition.cs" />
+    <Compile Include="Workflow\ExecutionSystem\WorkflowActionManager.cs" />
+    <Compile Include="Workflow\ExecutionSystem\WorkflowEventActionExecution.cs" />
+    <Compile Include="Workflow\ExecutionSystem\WorkflowNotifier.cs" />
+    <Compile Include="Workflow\Model\Rules\WorkflowRuleConfig.cs" />
+    <Compile Include="Workflow\Model\Types\TickType.cs" />
+    <Compile Include="Workflow\Model\Parameters\GenericParamter.cs" />
+    <Compile Include="Workflow\Model\Parameters\NotificationParameter.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowConditionalAction.cs" />
+    <Compile Include="Workflow\Model\Types\WorkflowActionType.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowListenerAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowMutateStateAction.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowTransitionActionConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowConfiguration.cs" />
+    <Compile Include="Workflow\ExecutionSystem\WorkflowDefinition.cs" />
+    <Compile Include="Workflow\Model\WorkflowEvents\WorkflowCondition.cs" />
+    <Compile Include="Workflow\Model\WorkflowEvents\WorkflowEventConfig.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowEventAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowExecuteStateRulesAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowNotificationAction.cs" />
+    <Compile Include="Workflow\Model\Types\WorkflowEventType.cs" />
+    <Compile Include="Workflow\Model\WorkflowListeners\WorkflowListenerBase.cs" />
+    <Compile Include="Workflow\Model\WorkflowListeners\WorkflowSocketListenerConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowListeners\WorkflowWebApiListenerConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowListeners\WorkflowWebSocketListenerConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowObjects\ObjectField.cs" />
+    <Compile Include="Workflow\Model\WorkflowObjects\WorkflowObjectType.cs" />
+    <Compile Include="Workflow\Model\WorkflowStates\WorkflowStateConfig.cs" />
+    <Compile Include="Workflow\Model\WorkflowTransitions\WorkflowTransitionConfig.cs" />
+    <Compile Include="Workflow\Router\RouterObject.cs" />
+    <Compile Include="Workflow\Support\ContextExtensions.cs" />
+    <Compile Include="Workflow\Support\DisposableExtensions.cs" />
+    <Compile Include="Workflow\Support\WorkflowActionConfigConverter.cs" />
+    <Compile Include="Workflow\Support\WorkflowNotification.cs" />
+    <Compile Include="Workflow\Model\Types\WorkflowNotificationType.cs" />
+    <Compile Include="Workflow\Model\Parameters\WorkflowParameter.cs" />
+    <Compile Include="Workflow\Model\WorkflowActions\WorkflowRoutine.cs" />
+    <Compile Include="Workflow\Engine\WorkflowRules\WorkflowRule.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowRuleAction.cs" />
+    <Compile Include="Workflow\Model\Types\WorkflowRuleOperator.cs" />
+    <Compile Include="Workflow\Engine\WorkflowStates\WorkflowState.cs" />
+    <Compile Include="Workflow\Model\Types\WorkflowStateType.cs" />
+    <Compile Include="Workflow\Support\WorkflowSystemLogger.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowTimerAction.cs" />
+    <Compile Include="Workflow\Engine\WorkflowActions\WorkflowTransitionAction.cs" />
+    <Compile Include="Workflow\Model\WorkflowStates\WorkflowTransitionConfig.cs" />
+    <Compile Include="Workflow\Support\WorkflowStateManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Workflow\Engine\WorkflowRequests\" />
+    <Folder Include="Workflow\Model\HIstory\" />
+    <Folder Include="Workflow\Model\WorkflowRequests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
